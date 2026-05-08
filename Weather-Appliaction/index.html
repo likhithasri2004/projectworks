@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Basic meta configuration -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+  <!-- App title -->
+  <title>SkyCanvas – Weather Dashboard</title>
+
+  <!-- Main stylesheet -->
+  <link rel="stylesheet" href="style.css" />
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet"/>
+
+  <!-- Font Awesome icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+</head>
+<body>
+
+  <!--  Sidebar Navigation  -->
+  <aside class="sidebar">
+
+    <!-- App logo -->
+    <div class="logo">
+      <i class="fa-solid fa-bolt"></i>
+    </div>
+
+    <!-- Sidebar navigation icons -->
+    <nav class="nav-icons">
+      <button class="nav-btn active" title="Dashboard">
+        <i class="fa-solid fa-grip"></i>
+      </button>
+      <button class="nav-btn" title="Charts">
+        <i class="fa-solid fa-chart-pie"></i>
+      </button>
+      <button class="nav-btn" title="Map">
+        <i class="fa-solid fa-location-dot"></i>
+      </button>
+      <button class="nav-btn" title="Calendar">
+        <i class="fa-solid fa-calendar-days"></i>
+      </button>
+      <button class="nav-btn" title="Settings">
+        <i class="fa-solid fa-gear"></i>
+      </button>
+    </nav>
+
+    <!-- Logout button -->
+    <button class="nav-btn logout-btn" title="Logout">
+      <i class="fa-solid fa-arrow-right-from-bracket"></i>
+    </button>
+  </aside>
+
+  <!--  Main Content Area  -->
+  <div class="main-content">
+
+    <!--  Top Search Bar  -->
+    <header class="topbar">
+
+      <!-- City search input -->
+      <div class="search-wrap">
+        <i class="fa-solid fa-magnifying-glass search-icon"></i>
+        <input
+          type="text"
+          id="searchInput"
+          class="search-input"
+          placeholder="Search city..."
+        />
+        <button id="searchBtn" class="search-btn">Go</button>
+      </div>
+
+      <!-- User profile section -->
+      <div class="user-info">
+        <div class="avatar">
+          <i class="fa-solid fa-user"></i>
+        </div>
+        <span class="username">User Name</span>
+        <i class="fa-solid fa-chevron-down"></i>
+      </div>
+    </header>
+
+    <!--  Dashboard Layout  -->
+    <div class="dashboard">
+
+      <!--  LEFT COLUMN  -->
+      <div class="col-left">
+
+        <!-- Main weather card -->
+        <div class="card main-weather-card">
+
+          <!-- City name display -->
+          <div class="location-tag">
+            <i class="fa-solid fa-location-dot"></i>
+            <span id="cityName">India</span>
+          </div>
+
+          <!-- Temperature unit toggle -->
+          <div class="unit-toggle">
+            <button id="celsiusBtn" class="unit-btn active">°C</button>
+            <button id="fahrenheitBtn" class="unit-btn">°F</button>
+          </div>
+
+          <!-- Primary weather information -->
+          <div class="weather-main">
+
+            <!-- Left side: date & temperature -->
+            <div class="weather-left">
+              <p class="day-name" id="dayName">Monday</p>
+              <p class="date-str" id="dateStr">24 Dec, 2023</p>
+              <h1 class="temp-big" id="mainTemp">26°C</h1>
+              <p class="hi-lo" id="hiLo">High: 27 Low: 10</p>
+            </div>
+
+            <!-- Right side: icon & condition -->
+            <div class="weather-right">
+              <div class="weather-icon-wrap" id="mainIcon">
+                <img src="" alt="weather" id="mainWeatherImg" />
+                <div class="icon-glow"></div>
+              </div>
+              <p class="condition" id="condition">Cloudy</p>
+              <p class="feels-like" id="feelsLike">Feels Like: 25°C</p>
+            </div>
+          </div>
+
+          <!-- Extra weather details -->
+          <div class="extra-row">
+            <div class="extra-item">
+              <i class="fa-solid fa-droplet"></i>
+              <span id="humidity">--</span>
+            </div>
+            <div class="extra-item">
+              <i class="fa-solid fa-wind"></i>
+              <span id="wind">--</span>
+            </div>
+            <div class="extra-item">
+              <i class="fa-solid fa-eye"></i>
+              <span id="visibility">--</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Forecast section -->
+        <div class="card forecast-card">
+
+          <!-- Forecast tabs -->
+          <div class="forecast-tabs">
+            <button class="ftab active" id="tab-today">Today</button>
+            <button class="ftab" id="tab-week">Week</button>
+          </div>
+
+          <!-- Hourly forecast (dynamic via JS) -->
+          <div class="hourly-row" id="hourlyRow"></div>
+
+          <!-- Sunrise / Sunset info -->
+          <div class="sun-info">
+
+            <div class="sun-item">
+              <i class="fa-solid fa-sun"></i>
+              <div>
+                <p class="sun-label">Sunrise</p>
+                <p class="sun-val" id="sunrise">6:45 AM</p>
+              </div>
+            </div>
+
+            <div class="sun-divider"></div>
+
+            <div class="sun-item">
+              <i class="fa-solid fa-moon"></i>
+              <div>
+                <p class="sun-label">Sunset</p>
+                <p class="sun-val" id="sunset">5:30 PM</p>
+              </div>
+            </div>
+
+            <div class="sun-divider"></div>
+
+            <div class="sun-item">
+              <i class="fa-regular fa-clock"></i>
+              <div>
+                <p class="sun-label">Length of day</p>
+                <p class="sun-val" id="dayLength">10h 23m</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Tomorrow quick preview -->
+          <div class="tomorrow-strip">
+            <span class="tom-label">Tomorrow</span>
+            <span id="tomorrowTemp" class="tom-temp">14°C</span>
+            <span id="tomorrowIcon" class="tom-icon">
+              <i class="fa-solid fa-cloud-bolt"></i>
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT COLUMN  -->
+      <div class="col-right">
+
+        <!-- Highlights title -->
+        <div class="section-title">Today Highlight</div>
+
+        <!-- Highlights cards -->
+        <div class="highlights-grid">
+
+          <!-- Rain probability -->
+          <div class="card highlight-card" id="hl-rain">
+            <p class="hl-label">Chance of Rain</p>
+            <div class="hl-value-wrap">
+              <div class="rain-bar-wrap">
+                <div class="rain-bar-fill" id="rainBar"></div>
+              </div>
+              <span class="hl-value" id="rainChance">--%</span>
+            </div>
+            <i class="fa-solid fa-cloud-rain hl-icon"></i>
+          </div>
+
+          <!-- UV index -->
+          <div class="card highlight-card" id="hl-uv">
+            <p class="hl-label">UV Index</p>
+            <div class="uv-circle-wrap">
+              <svg class="uv-ring" viewBox="0 0 80 80">
+                <circle cx="40" cy="40" r="32" fill="none" stroke="#1e2a3a" stroke-width="8"/>
+                <circle id="uvArc" cx="40" cy="40" r="32" fill="none"
+                  stroke="#f5a623" stroke-width="8"
+                  stroke-dasharray="201"
+                  stroke-dashoffset="201"
+                  stroke-linecap="round"
+                  transform="rotate(-90 40 40)"/>
+              </svg>
+              <span class="uv-label" id="uvVal">0</span>
+            </div>
+            <span class="uv-text" id="uvText">Low</span>
+          </div>
+
+          <!-- Wind information -->
+          <div class="card highlight-card" id="hl-wind">
+            <p class="hl-label">Wind Status</p>
+            <div class="wind-display">
+              <span class="wind-speed" id="windSpeed">--</span>
+              <span class="wind-unit">km/h</span>
+            </div>
+            <div class="wind-dir" id="windDir">
+              <i class="fa-solid fa-compass"></i>
+              <span id="windDirText">N/A</span>
+            </div>
+          </div>
+
+          <!-- Humidity level -->
+          <div class="card highlight-card" id="hl-hum">
+            <p class="hl-label">Humidity</p>
+            <div class="hum-display">
+              <span class="hum-val" id="humVal">--%</span>
+            </div>
+            <div class="hum-bar-outer">
+              <div class="hum-bar-inner" id="humBar"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Other cities section -->
+        <div class="section-header">
+          <span class="section-title">Other Cities</span>
+          <button class="see-all-btn" id="seeAllBtn">See All</button>
+        </div>
+
+        <!-- Dynamic cities list -->
+        <div class="cities-grid" id="citiesGrid"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Loading overlay -->
+  <div class="loader-overlay" id="loaderOverlay">
+    <div class="spinner"></div>
+    <p>Fetching weather...</p>
+  </div>
+
+  <!-- Toast notification -->
+  <div class="toast" id="toast"></div>
+
+  <!-- JavaScript file -->
+  <script src="script.js"></script>
+</body>
+</html>
