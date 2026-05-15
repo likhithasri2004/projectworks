@@ -125,8 +125,8 @@ const Products = () => {
 
         {/* PRODUCTS GRID */}
         <div className="products-grid">
-          {filteredProducts.map(product => (
-            <ProductCard key={product.id} product={product} />
+          {filteredProducts.map((product, index)=> (
+            <ProductCard key={product.id} product={product} index={index} />
           ))}
         </div>
 

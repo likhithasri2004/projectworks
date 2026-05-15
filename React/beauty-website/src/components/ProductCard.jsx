@@ -1,14 +1,24 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-const ProductCard = ({ product }) => {
+const fallbackImages = Array.from(
+  { length: 20 },
+  (_, i) => `/images/img${i + 1}.png`
+);
+
+const ProductCard = ({ product, index }) => {
+  const fallbackImage = fallbackImages[index % fallbackImages.length];
+
   return (
     <Link to={`/products/${product.id}`} className="product-link">
       <div className="product-card">
         <div className="product-image">
           <img
-            src={product.image_link || 'https://via.placeholder.com/200'}
+            src={product.image_link || fallbackImage}
             alt={product.name}
+            onError={(e) => {
+              e.target.src = fallbackImage;
+            }}
           />
         </div>
 
