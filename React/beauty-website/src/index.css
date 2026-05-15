@@ -43,3 +43,8 @@ body {
   text-align: center;
   padding: 12px;
 }
+
+.navbar a.active {
+  color: #e91e63;
+  border-bottom: 2px solid #e91e63;
+}

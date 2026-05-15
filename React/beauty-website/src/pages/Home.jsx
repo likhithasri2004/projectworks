@@ -1,13 +1,11 @@
-import Header from '../components/Header'
 import Carousel from '../components/Carousel'
-import Footer from '../components/Footer'
 
 export default function Home() {
   return (
-    <>
-      <Header />
+    <div>
       <Carousel />
-      <Footer />
-    </>
+      <h2>Welcome to Glow Beauty</h2>
+      <p>Your beauty, our passion ✨</p>
+    </div>
   )
 }
