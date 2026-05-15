@@ -852,3 +852,124 @@ body {
   object-fit: cover;
   border-radius: 8px;
 }
+
+
+/* about  */
+
+/* ===============================
+   ABOUT US PAGE
+================================ */
+
+.about-page {
+  padding: 80px 0;
+  background: linear-gradient(to bottom, #fff5f7, #ffffff);
+}
+
+.about-hero {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.about-hero h1 {
+  font-size: 3rem;
+  color: #ff6f91;
+  margin-bottom: 0.5rem;
+}
+
+.about-hero p {
+  font-size: 1.2rem;
+  color: #555;
+  max-width: 600px;
+  margin: auto;
+}
+
+/* Section */
+.about-section {
+  margin-bottom: 3rem;
+}
+
+.about-section h2 {
+  font-size: 2rem;
+  color: #333;
+  margin-bottom: 1rem;
+}
+
+.about-section p {
+  color: #666;
+  font-size: 1.05rem;
+  line-height: 1.8;
+}
+
+/* Grid */
+.about-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 2rem;
+  margin-bottom: 3rem;
+}
+
+.about-card {
+  background: #ffffff;
+  padding: 2rem;
+  border-radius: 18px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease;
+}
+
+.about-card:hover {
+  transform: translateY(-8px);
+}
+
+.about-card h3 {
+  color: #ff6f91;
+  margin-bottom: 0.8rem;
+}
+
+/* List */
+.about-list {
+  list-style: none;
+  padding-left: 0;
+}
+
+.about-list li {
+  padding: 0.5rem 0;
+  font-size: 1rem;
+  color: #555;
+}
+
+/* Highlight Section */
+.about-section.highlight {
+  background: #fff0f4;
+  padding: 2.5rem;
+  border-radius: 20px;
+}
+
+/* Footer */
+.about-footer {
+  text-align: center;
+  margin-top: 4rem;
+}
+
+.about-footer h3 {
+  font-size: 2rem;
+  color: #ff6f91;
+  margin-bottom: 0.5rem;
+}
+
+.about-footer p {
+  color: #666;
+  font-size: 1.05rem;
+  max-width: 600px;
+  margin: auto;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .about-hero h1 {
+    font-size: 2.4rem;
+  }
+
+  .about-section h2 {
+    font-size: 1.6rem;
+  }
+}
