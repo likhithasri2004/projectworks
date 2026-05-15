@@ -11,27 +11,30 @@ const ProductDetail = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  // ✅ SAFE VITE IMAGE PATHS
+  const fallbackImages = Array.from(
+    { length: 20 },
+    (_, i) => `${import.meta.env.BASE_URL}images/img${i + 1}.png`
+  );
+
   useEffect(() => {
     const fetchProduct = async () => {
       try {
         setLoading(true);
         setError(null);
 
-        // ✅ FETCH ALL PRODUCTS (API LIMITATION)
-        const response = await fetch(
+        const res = await fetch(
           'https://makeup-api.herokuapp.com/api/v1/products.json'
         );
-        const data = await response.json();
+        const data = await res.json();
 
-        const foundProduct = data.find(
+        const found = data.find(
           item => String(item.id) === String(id)
         );
 
-        if (!foundProduct) {
-          throw new Error('Product not found');
-        }
+        if (!found) throw new Error('Product not found');
 
-        setProduct(foundProduct);
+        setProduct(found);
       } catch (err) {
         setError(err.message);
       } finally {
@@ -42,88 +45,46 @@ const ProductDetail = () => {
     fetchProduct();
   }, [id]);
 
-  const handleAddToCart = () => {
-    addToCart(product);
-  };
-
-  /* ---------- LOADING ---------- */
   if (loading) {
-    return (
-      <section className="product-detail-page">
-        <div className="container">
-          <div className="loading">Loading product details... ✨</div>
-        </div>
-      </section>
-    );
+    return <div className="loading">Loading...</div>;
   }
 
-  /* ---------- ERROR ---------- */
   if (error || !product) {
     return (
-      <section className="product-detail-page">
-        <div className="container">
-          <div className="not-found">
-            <h2>Product Not Found 😢</h2>
-            <button
-              className="btn btn-primary"
-              onClick={() => navigate('/products')}
-            >
-              Browse Products
-            </button>
-          </div>
-        </div>
-      </section>
+      <div className="not-found">
+        <h2>Product Not Found</h2>
+        <button onClick={() => navigate('/products')}>Back</button>
+      </div>
     );
   }
 
-  /* ---------- UI ---------- */
+  // ✅ ALWAYS SAME IMAGE FOR SAME PRODUCT
+  const fallbackImage =
+    fallbackImages[Number(product.id) % fallbackImages.length];
+
   return (
     <section className="product-detail-page">
       <div className="container">
-        <button className="back-button" onClick={() => navigate('/products')}>
-          ← Back to Products
+        <button onClick={() => navigate('/products')}>
+          ← Back
         </button>
 
         <div className="product-detail-grid">
-          <div className="product-images">
-            <img
-              src={
-                product.image_link ||
-                'https://via.placeholder.com/500x600?text=No+Image'
-              }
-              alt={product.name}
-              className="main-image"
-            />
-          </div>
+          <img
+            src={product.image_link || fallbackImage}
+            alt={product.name}
+            onError={(e) => {
+              e.currentTarget.src = fallbackImage;
+            }}
+            style={{ width: '300px' }}
+          />
 
-          <div className="product-info">
-            <h1 className="product-title">{product.name}</h1>
+          <div>
+            <h1>{product.name}</h1>
+            <p>${product.price || 'N/A'}</p>
 
-            <div className="product-price-large">
-              ${product.price || 'N/A'}
-            </div>
-
-            <div className="product-badges">
-              {product.brand && (
-                <span className="brand-badge">{product.brand}</span>
-              )}
-              {product.product_type && (
-                <span className="type-badge">{product.product_type}</span>
-              )}
-            </div>
-
-            {product.description && (
-              <div className="product-description">
-                <h3>About this product</h3>
-                <p>{product.description}</p>
-              </div>
-            )}
-
-            <button
-              className="add-to-cart-btn large"
-              onClick={handleAddToCart}
-            >
-              🛒 Add to Cart
+            <button onClick={() => addToCart(product)}>
+              Add to Cart
             </button>
           </div>
         </div>
