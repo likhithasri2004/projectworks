@@ -1083,3 +1083,129 @@ body {
     font-size: 1.6rem;
   }
 }
+
+
+/* contact */
+
+/* ===============================
+   CONTACT PAGE
+================================ */
+
+.contact-page {
+  padding: 80px 0;
+  background: linear-gradient(to bottom, #ffffff, #fff5f7);
+}
+
+/* Hero */
+.contact-hero {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.contact-hero h1 {
+  font-size: 3rem;
+  color: #ff6f91;
+  margin-bottom: 0.5rem;
+}
+
+.contact-hero p {
+  font-size: 1.15rem;
+  color: #555;
+  max-width: 620px;
+  margin: auto;
+}
+
+/* Info Cards */
+.contact-info {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 2rem;
+  margin-bottom: 3.5rem;
+}
+
+.info-card {
+  background: #ffffff;
+  padding: 2rem;
+  border-radius: 18px;
+  text-align: center;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+  transition: 0.3s ease;
+}
+
+.info-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.12);
+}
+
+.info-card h3 {
+  color: #ff6f91;
+  margin-bottom: 0.5rem;
+}
+
+/* Form */
+.contact-form-wrapper {
+  max-width: 600px;
+  margin: auto;
+  background: #ffffff;
+  padding: 3rem;
+  border-radius: 22px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+}
+
+.contact-form-wrapper h2 {
+  text-align: center;
+  color: #333;
+  margin-bottom: 1.5rem;
+}
+
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.contact-form input,
+.contact-form textarea {
+  padding: 0.9rem 1rem;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+  font-size: 0.95rem;
+  outline: none;
+  transition: 0.25s ease;
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+  border-color: #ff6f91;
+  box-shadow: 0 0 0 2px rgba(255, 111, 145, 0.15);
+}
+
+/* Footer */
+.contact-footer {
+  text-align: center;
+  margin-top: 4rem;
+}
+
+.contact-footer h3 {
+  font-size: 2rem;
+  color: #ff6f91;
+  margin-bottom: 0.5rem;
+}
+
+.contact-footer p {
+  font-size: 1.05rem;
+  color: #666;
+  max-width: 600px;
+  margin: auto;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .contact-hero h1 {
+    font-size: 2.4rem;
+  }
+
+  .contact-form-wrapper {
+    padding: 2rem;
+  }
+}
