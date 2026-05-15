@@ -1,69 +1,65 @@
-import React, { useState, useContext } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { CartContext } from '../App.jsx';
+import { CartContext } from '../App';
 
 const Header = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { cartItems } = useContext(CartContext);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const location = useLocation();
 
   return (
     <header className="header">
       <div className="container">
-        <Link to="/" className="logo" onClick={() => setIsMenuOpen(false)}>
-          <h2>✨ BeautyGlow</h2>
+        <Link to="/" className="logo">
+          <h1>✨ BeautyHub</h1>
         </Link>
         
-        <nav className={`nav ${isMenuOpen ? 'nav-open' : ''}`}>
+        <nav className={`navbar ${isMenuOpen ? 'active' : ''}`}>
           <Link 
             to="/" 
-            className={`nav-link ${location.pathname === '/' ? 'active' : ''}`}
+            className={location.pathname === '/' ? 'nav-link active' : 'nav-link'}
             onClick={() => setIsMenuOpen(false)}
           >
             Home
           </Link>
           <Link 
             to="/about" 
-            className={`nav-link ${location.pathname === '/about' ? 'active' : ''}`}
+            className={location.pathname === '/about' ? 'nav-link active' : 'nav-link'}
             onClick={() => setIsMenuOpen(false)}
           >
-            About
+            About Us
           </Link>
           <Link 
             to="/services" 
-            className={`nav-link ${location.pathname === '/services' ? 'active' : ''}`}
+            className={location.pathname === '/services' ? 'nav-link active' : 'nav-link'}
             onClick={() => setIsMenuOpen(false)}
           >
             Services
           </Link>
           <Link 
             to="/products" 
-            className={`nav-link ${location.pathname.startsWith('/products') ? 'active' : ''}`}
+            className={location.pathname.startsWith('/products') ? 'nav-link active' : 'nav-link'}
             onClick={() => setIsMenuOpen(false)}
           >
             Products
           </Link>
           <Link 
             to="/contact" 
-            className={`nav-link ${location.pathname === '/contact' ? 'active' : ''}`}
+            className={location.pathname === '/contact' ? 'nav-link active' : 'nav-link'}
             onClick={() => setIsMenuOpen(false)}
           >
             Contact
           </Link>
-          <Link to="/cart" className="cart-btn" onClick={() => setIsMenuOpen(false)}>
+          {/* <Link to="/cart" className="cart-link">
             🛒 Cart ({cartItems.length})
-          </Link>
+          </Link> */}
         </nav>
 
-        <button 
-          className="menu-toggle" 
-          onClick={() => setIsMenuOpen(!isMenuOpen)}
-          aria-label="Toggle menu"
-        >
+        <div className="menu-toggle" onClick={() => setIsMenuOpen(!isMenuOpen)}>
           <span></span>
           <span></span>
           <span></span>
-        </button>
+        </div>
       </div>
     </header>
   );

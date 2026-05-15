@@ -18,7 +18,7 @@ body {
 
 /* Header */
 .header {
-  background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
+  background: linear-gradient(135deg, #e9207b 0%, #a50a74 100%);
   box-shadow: 0 2px 10px rgba(0,0,0,0.1);
   position: sticky;
   top: 0;
@@ -173,12 +173,66 @@ body {
 
 .carousel-track {
   display: flex;
-  transition: transform 0.5s ease;
+  transition: transform 0.6s ease-in-out;
+}
+
+.carousel-container {
+  position: relative;
+  max-width: 1000px;
+  margin: auto;
+  overflow: hidden; /* IMPORTANT */
 }
 
 .carousel-slide {
   min-width: 100%;
-  padding: 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.carousel-card {
+  width: 100%;
+  max-width: 360px;
+  margin: auto;
+}
+
+.carousel-card .product-image {
+  height: 360px;
+  background: #f4f4f4;
+}
+
+.carousel-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.carousel-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(255, 255, 255, 0.95);
+  border: none;
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  font-size: 1.6rem;
+  cursor: pointer;
+  z-index: 10;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.carousel-arrow.left {
+  left: 10px;
+}
+
+.carousel-arrow.right {
+  right: 10px;
+}
+
+/* CTA */
+.carousel-cta {
+  text-align: center;
+  margin-top: 2rem;
 }
 
 .carousel-btn {
@@ -203,6 +257,22 @@ body {
 
 .prev { left: 10px; }
 .next { right: 10px; }
+
+@media (max-width: 480px) {
+  .carousel-card {
+    max-width: 260px;
+  }
+
+  .carousel-card .product-image {
+    height: 220px;
+  }
+
+  .carousel-arrow {
+    width: 35px;
+    height: 35px;
+    font-size: 1.2rem;
+  }
+}
 
 /* Features */
 .features {

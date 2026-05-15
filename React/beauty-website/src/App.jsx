@@ -8,7 +8,7 @@ import Services from './pages/Services';
 import Products from './pages/Products';
 import ProductDetail from './pages/ProductDetail';
 import Contact from './pages/Contact';
-import Cart from './pages/Cart';
+// import Cart from './pages/Cart';
 import './App.css';
 
 export const CartContext = createContext();
@@ -63,7 +63,7 @@ function AppContent() {
               <Route path="/products" element={<Products />} />
               <Route path="/products/:id" element={<ProductDetail />} />
               <Route path="/contact" element={<Contact />} />
-              <Route path="/cart" element={<Cart />} />
+              {/* <Route path="/cart" element={<Cart />} /> */}
               <Route path="*" element={<Home />} />
             </Routes>
           </main>

@@ -74,13 +74,13 @@ const ProductCarousel = () => {
                       loading="lazy"
                     />
                   </div>
-                  <div className="product-info">
+                  {/* <div className="product-info">
                     <h3>{product.name}</h3>
                     <div className="product-meta">
                       <span className="brand">{product.brand}</span>
                       <span className="price">${product.price || 'N/A'}</span>
                     </div>
-                  </div>
+                  </div> */}
                 </Link>
               </div>
             ))}
