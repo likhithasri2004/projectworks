@@ -973,3 +973,113 @@ body {
     font-size: 1.6rem;
   }
 }
+
+
+/* services */
+/* ===============================
+   SERVICES PAGE
+================================ */
+
+.services-page {
+  padding: 80px 0;
+  background: linear-gradient(to bottom, #ffffff, #fff5f7);
+}
+
+/* Hero */
+.services-hero {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.services-hero h1 {
+  font-size: 3rem;
+  color: #ff6f91;
+  margin-bottom: 0.5rem;
+}
+
+.services-hero p {
+  font-size: 1.2rem;
+  color: #555;
+  max-width: 620px;
+  margin: auto;
+}
+
+/* Section */
+.services-section {
+  margin-bottom: 3rem;
+}
+
+.services-section h2 {
+  font-size: 2rem;
+  color: #333;
+  margin-bottom: 1rem;
+}
+
+.services-section p {
+  font-size: 1.05rem;
+  color: #666;
+  line-height: 1.8;
+}
+
+/* Grid */
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 2rem;
+  margin-bottom: 3rem;
+}
+
+.service-card {
+  background: #ffffff;
+  padding: 2rem;
+  border-radius: 18px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+}
+
+.service-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.12);
+}
+
+.service-card h3 {
+  color: #ff6f91;
+  margin-bottom: 0.8rem;
+}
+
+/* Highlight */
+.services-section.highlight {
+  background: #fff0f4;
+  padding: 2.5rem;
+  border-radius: 20px;
+}
+
+/* Footer */
+.services-footer {
+  text-align: center;
+  margin-top: 4rem;
+}
+
+.services-footer h3 {
+  font-size: 2rem;
+  color: #ff6f91;
+  margin-bottom: 0.5rem;
+}
+
+.services-footer p {
+  font-size: 1.05rem;
+  color: #666;
+  max-width: 600px;
+  margin: auto;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .services-hero h1 {
+    font-size: 2.4rem;
+  }
+
+  .services-section h2 {
+    font-size: 1.6rem;
+  }
+}
