@@ -1,11 +1,3 @@
-import { useDispatch, useSelector } from 'react-redux'
-import {
-  addValue,
-  clearValue,
-  calculateResult,
-} from '../../features/calculator/calculatorSlice'
-import './Calculator.css'
-
 export default function Calculator() {
   const dispatch = useDispatch()
   const value = useSelector((state) => state.calculator.value)
@@ -22,23 +14,43 @@ export default function Calculator() {
       <input type="text" value={value} readOnly />
 
       <div className="buttons">
+
+        {/* ⌫ Backspace */}
+        <button
+          className="operator"
+          onClick={() => dispatch(deleteLast())}
+        >
+          ⌫
+        </button>
+
+        {/* Clear */}
+        <button
+          className="clear"
+          onClick={() => dispatch(clearValue())}
+        >
+          C
+        </button>
+
+        {/* Numbers & operators */}
         {buttons.map((btn) =>
           btn === '=' ? (
-            <button key={btn} onClick={() => dispatch(calculateResult())}>
+            <button
+              key={btn}
+              className="equal"
+              onClick={() => dispatch(calculateResult())}
+            >
               =
             </button>
           ) : (
             <button
               key={btn}
+              className={isNaN(btn) ? 'operator' : ''}
               onClick={() => dispatch(addValue(btn))}
             >
               {btn}
             </button>
           )
         )}
-        <button className="clear" onClick={() => dispatch(clearValue())}>
-          C
-        </button>
       </div>
     </div>
   )

@@ -11,9 +11,16 @@ const calculatorSlice = createSlice({
     addValue: (state, action) => {
       state.value += action.payload
     },
+
     clearValue: (state) => {
       state.value = ''
     },
+
+    // ✅ NEW: delete one digit
+    deleteLast: (state) => {
+      state.value = state.value.slice(0, -1)
+    },
+
     calculateResult: (state) => {
       try {
         state.value = eval(state.value).toString()
@@ -24,7 +31,11 @@ const calculatorSlice = createSlice({
   },
 })
 
-export const { addValue, clearValue, calculateResult } =
-  calculatorSlice.actions
+export const {
+  addValue,
+  clearValue,
+  deleteLast,        // ✅ export this
+  calculateResult,
+} = calculatorSlice.actions
 
 export default calculatorSlice.reducer
