@@ -324,7 +324,7 @@ el.fBtn.addEventListener('click', () => {
 el.tabDay.addEventListener('click', () => {
   weekMode = false;
   el.tabDay.classList.add('active');
-  el.tabWeek.classList.remove('active');
+  el.tabWeek.classList.remove('activegit log --all -- Python');
   fetchCity(cityName);
 });
 
