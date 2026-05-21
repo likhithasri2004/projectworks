@@ -397,3 +397,152 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+  # Add File Storage
+
+  #  Data saved to file!
+import json
+import os
+from getpass import getpass
+
+ACCOUNTS_FILE = "accounts.txt"
+
+def load_accounts():
+    if not os.path.exists(ACCOUNTS_FILE):
+        return {}
+    
+    with open(ACCOUNTS_FILE, 'r') as f:
+        try:
+            return json.load(f)
+        except:
+            return {}
+
+def save_accounts(accounts):
+    with open(ACCOUNTS_FILE, 'w') as f:
+        json.dump(accounts, f, indent=4)
+
+def generate_acc_number(accounts):
+    if not accounts:
+        return 1001
+    return max(int(k) for k in accounts.keys()) + 1
+
+def authenticate(accounts):
+    acc_num = input("Account number: ").strip()
+    if acc_num not in accounts:
+        print("❌ Account not found!")
+        return None
+    
+    pin = getpass("PIN: ").strip()
+    if accounts[acc_num]['pin'] == pin:
+        print(f"✅ Welcome {accounts[acc_num]['name']}!")
+        return accounts[acc_num]
+    else:
+        print("❌ Wrong PIN!")
+        return None
+
+def create_account(accounts):
+    print("\n--- Create Account ---")
+    name = input("Name: ").strip().title()
+    mobile = input("Mobile: ").strip()
+    
+    if len(mobile) != 10 or not mobile.isdigit():
+        print("❌ Invalid mobile!")
+        return
+    
+    try:
+        deposit = float(input("Initial deposit (₹500 min): "))
+        if deposit < 500:
+            print("❌ Minimum ₹500!")
+            return
+    except ValueError:
+        print("❌ Invalid amount!")
+        return
+    
+    acc_number = generate_acc_number(accounts)
+    
+    accounts[str(acc_number)] = {
+        'account_number': acc_number,
+        'name': name,
+        'mobile': mobile,
+        'balance': deposit,
+        'pin': '1234'
+    }
+    
+    save_accounts(accounts)
+    print(f"\n✅ Account {acc_number} created! PIN: 1234")
+
+def deposit(accounts):
+    account = authenticate(accounts)
+    if not account:
+        return
+    
+    try:
+        amount = float(input("Deposit amount: ₹"))
+        if amount <= 0:
+            print("❌ Amount must be positive!")
+            return
+        
+        account['balance'] += amount
+        save_accounts(accounts)
+        print(f"✅ Deposited ₹{amount:.2f}")
+        print(f"💰 New balance: ₹{account['balance']:.2f}")
+    except ValueError:
+        print("❌ Invalid amount!")
+
+def withdraw(accounts):
+    account = authenticate(accounts)
+    if not account:
+        return
+    
+    try:
+        amount = float(input("Withdraw amount: ₹"))
+        if amount <= 0:
+            print("❌ Amount must be positive!")
+            return
+        if amount > account['balance']:
+            print(f"❌ Insufficient! Available: ₹{account['balance']:.2f}")
+            return
+        
+        account['balance'] -= amount
+        save_accounts(accounts)
+        print(f"✅ Withdrew ₹{amount:.2f}")
+        print(f"💰 Remaining: ₹{account['balance']:.2f}")
+    except ValueError:
+        print("❌ Invalid amount!")
+
+def check_balance(accounts):
+    account = authenticate(accounts)
+    if account:
+        print(f"\n💰 Balance: ₹{account['balance']:.2f}")
+
+def display_menu():
+    print("\n" + "="*40)
+    print("1. Create Account")
+    print("2. Deposit")
+    print("3. Withdraw")
+    print("4. Check Balance")
+    print("5. Exit")
+
+def main():
+    accounts = load_accounts()
+    
+    while True:
+        display_menu()
+        choice = input("Choice: ")
+        
+        if choice == '1':
+            create_account(accounts)
+        elif choice == '2':
+            deposit(accounts)
+        elif choice == '3':
+            withdraw(accounts)
+        elif choice == '4':
+            check_balance(accounts)
+        elif choice == '5':
+            print("Goodbye!")
+            break
+        else:
+            print("Invalid!")
+
+if __name__ == "__main__":
+    main()  
