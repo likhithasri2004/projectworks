@@ -100,3 +100,88 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+    # Switch to dictionary + Search Account
+
+    # Using dictionaries for faster lookup
+
+accounts = {}  # account_number -> account details
+
+def generate_acc_number():
+    if not accounts:
+        return 1001
+    return max(int(k) for k in accounts.keys()) + 1
+
+def create_account():
+    print("\n--- Create Account ---")
+    
+    name = input("Name: ").strip().title()
+    mobile = input("Mobile (10 digits): ").strip()
+    
+    if len(mobile) != 10 or not mobile.isdigit():
+        print("❌ Invalid mobile!")
+        return
+    
+    try:
+        deposit = float(input("Initial deposit (Min ₹500): "))
+        if deposit < 500:
+            print("❌ Minimum ₹500 required!")
+            return
+    except ValueError:
+        print("❌ Invalid amount!")
+        return
+    
+    acc_number = generate_acc_number()
+    
+    accounts[str(acc_number)] = {
+        'account_number': acc_number,
+        'name': name,
+        'mobile': mobile,
+        'balance': deposit,
+        'pin': '1234'  # Default PIN
+    }
+    
+    print(f"\n✅ Account {acc_number} created! PIN: 1234")
+
+def find_account():
+    acc_num = input("Enter account number: ").strip()
+    if acc_num in accounts:
+        return accounts[acc_num]
+    else:
+        print("❌ Account not found!")
+        return None
+
+def view_account():
+    account = find_account()
+    if account:
+        print(f"\nAccount: {account['account_number']}")
+        print(f"Name: {account['name']}")
+        print(f"Mobile: {account['mobile']}")
+        print(f"Balance: ₹{account['balance']}")
+
+def display_menu():
+    print("\n" + "="*40)
+    print("1. Create Account")
+    print("2. View Account")
+    print("3. Exit")
+
+def main():
+    global accounts
+    
+    while True:
+        display_menu()
+        choice = input("Choice: ")
+        
+        if choice == '1':
+            create_account()
+        elif choice == '2':
+            view_account()
+        elif choice == '3':
+            break
+        else:
+            print("Invalid!")
+        
+        input("\nPress Enter...")
+
+if __name__ == "__main__":
+    main()
