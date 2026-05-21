@@ -1,4 +1,4 @@
-# main_v1.py - Basic menu system with loops
+#  Basic menu system with loops
 
 def display_menu():
     print("\n" + "="*50)
@@ -182,6 +182,92 @@ def main():
             print("Invalid!")
         
         input("\nPress Enter...")
+
+if __name__ == "__main__":
+    main()
+
+    #  PIN authentication added
+from getpass import getpass
+
+accounts = {}
+
+def generate_acc_number():
+    if not accounts:
+        return 1001
+    return max(int(k) for k in accounts.keys()) + 1
+
+def authenticate():
+    print("\n--- Login ---")
+    acc_num = input("Account number: ").strip()
+    
+    if acc_num not in accounts:
+        print("❌ Account not found!")
+        return None
+    
+    pin = getpass("Enter PIN: ").strip()
+    
+    if accounts[acc_num]['pin'] == pin:
+        print(f"✅ Welcome {accounts[acc_num]['name']}!")
+        return accounts[acc_num]
+    else:
+        print("❌ Wrong PIN!")
+        return None
+
+def create_account():
+    print("\n--- Create Account ---")
+    name = input("Name: ").strip().title()
+    mobile = input("Mobile: ").strip()
+    
+    if len(mobile) != 10 or not mobile.isdigit():
+        print("❌ Invalid mobile!")
+        return
+    
+    try:
+        deposit = float(input("Initial deposit (₹500 min): "))
+        if deposit < 500:
+            print("❌ Minimum ₹500!")
+            return
+    except ValueError:
+        print("❌ Invalid amount!")
+        return
+    
+    acc_number = generate_acc_number()
+    
+    accounts[str(acc_number)] = {
+        'account_number': acc_number,
+        'name': name,
+        'mobile': mobile,
+        'balance': deposit,
+        'pin': '1234'
+    }
+    
+    print(f"\n✅ Account {acc_number} created! Default PIN: 1234")
+
+def check_balance():
+    account = authenticate()
+    if account:
+        print(f"\n💰 Balance: ₹{account['balance']:.2f}")
+
+def display_menu():
+    print("\n" + "="*40)
+    print("1. Create Account")
+    print("2. Check Balance")
+    print("3. Exit")
+
+def main():
+    while True:
+        display_menu()
+        choice = input("Choice: ")
+        
+        if choice == '1':
+            create_account()
+        elif choice == '2':
+            check_balance()
+        elif choice == '3':
+            print("Goodbye!")
+            break
+        else:
+            print("Invalid!")
 
 if __name__ == "__main__":
     main()
